@@ -43,20 +43,35 @@ public class User implements Serializable {
 
     // ... getters and setters
 
-    public Collection<UserAuthority> getUserAuthorities() {
-        return Collections.unmodifiableCollection(this.userAuthorities);
-    }
-
-    public void grantAuthority(String authority) {
-        UserAuthority userAuthority = new UserAuthority(this, authority);
-        this.userAuthorities.add(userAuthority);
-    }
-
     public String getUsername() {
-        return this.username;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return this.password;
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Collection<UserAuthority> getUserAuthorities() {
+        return userAuthorities;
+    }
+
+    public void grantAuthority(String authority) {
+        this.userAuthorities.add(new UserAuthority(this, authority));
     }
 }

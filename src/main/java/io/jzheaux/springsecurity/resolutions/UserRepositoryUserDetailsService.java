@@ -21,7 +21,7 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.users.findByUsername(username)
                 .map(BridgeUser::new)
-                .orElseThrow(() -> new UsernameNotFoundException("invalid user"));
+                .orElseThrow(() -> new UsernameNotFoundException("no user"));
     }
 
     private static class BridgeUser extends User implements UserDetails {
@@ -31,10 +31,9 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
         }
 
         @Override
-        public List<GrantedAuthority> getAuthorities() {
+        public Collection<? extends GrantedAuthority> getAuthorities() {
             return this.userAuthorities.stream()
-                    .map(UserAuthority::getAuthority)
-                    .map(SimpleGrantedAuthority::new)
+                    .map(a -> new SimpleGrantedAuthority(a.authority))
                     .collect(Collectors.toList());
         }
 
@@ -51,11 +50,6 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
         @Override
         public boolean isCredentialsNonExpired() {
             return this.enabled;
-        }
-
-        @Override
-        public boolean isEnabled() {
-            return false;
         }
     }
 }
