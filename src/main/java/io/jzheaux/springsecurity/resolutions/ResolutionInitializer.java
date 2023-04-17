@@ -32,5 +32,9 @@ public class ResolutionInitializer implements SmartInitializingSingleton {
 		User hasWrite = new User("haswrite", "{bcrypt}$2a$10$3njzOWhsz20aimcpMamJhOnX9Pb4Nk3toq8OO0swIy5EPZnb1YyGe");
 		hasWrite.grantAuthority("resolution:write");
 		this.users.save(hasWrite);
+
+		User admin = new User("admin","{bcrypt}$2a$10$bTu5ilpT4YILX8dOWM/05efJnoSlX4ElNnjhNopL9aPoRyUgvXAYa");
+		admin.grantAuthority("ROLE_ADMIN");
+		this.users.save(admin);
 	}
 }
