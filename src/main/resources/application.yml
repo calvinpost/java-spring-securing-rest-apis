@@ -1,4 +1,8 @@
 spring:
+  jpa:
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
   security:
     oauth2:
       resourceserver:
@@ -6,7 +10,3 @@ spring:
           introspection-uri: http://localhost:9999/auth/realms/one/protocol/openid-connect/token/introspect
           client-id: app
           client-secret: bfbd9f62-02ce-a370-80d45514bd0a
-  jpa:
-    properties:
-      hibernate:
-        enable_lazy_load_no_trans: true

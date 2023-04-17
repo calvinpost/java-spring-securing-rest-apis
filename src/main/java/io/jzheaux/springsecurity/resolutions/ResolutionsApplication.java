@@ -40,7 +40,10 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http
 				.authorizeRequests(authz -> authz
-						.anyRequest().authenticated())
+						.mvcMatchers(GET, "/resolutions", "/resolution/**")
+						.hasAuthority("resolution:read")
+						.anyRequest()
+						.hasAuthority("resolution:write"))
 				.httpBasic(basic -> {})
 				.oauth2ResourceServer(oauth2 -> oauth2.opaqueToken())
 				.cors(cors -> {});

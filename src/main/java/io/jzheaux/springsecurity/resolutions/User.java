@@ -76,7 +76,7 @@ public class User implements Serializable {
     }
 
     public void addFriend(User friend) {
-        friends.add(friend);
+        this.friends.add(friend);
     }
 
     public String getUsername() {
