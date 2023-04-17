@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.oauth2.server.resource.introspection.NimbusOpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.introspection.OpaqueTokenIntrospector;
 import org.springframework.security.oauth2.server.resource.web.reactive.function.client.ServerBearerExchangeFilterFunction;
+import org.springframework.security.oauth2.server.resource.web.reactive.function.client.ServletBearerExchangeFilterFunction;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -83,7 +84,7 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	public WebClient.Builder web() {
 		return WebClient.builder()
 				.baseUrl("http://localhost:8081")
-				.filter(new ServerBearerExchangeFilterFunction());
+				.filter(new ServletBearerExchangeFilterFunction());
 	}
 
 }
