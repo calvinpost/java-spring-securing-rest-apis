@@ -32,6 +32,8 @@ public class UserRepositoryUserDetailsService implements UserDetailsService {
             if ("ROLE_ADMIN".equals(authority)) {
                 authorities.add(new SimpleGrantedAuthority("resolution:read"));
                 authorities.add(new SimpleGrantedAuthority("resolution:write"));
+                authorities.add(new SimpleGrantedAuthority("user:read"));
+                authorities.add(new SimpleGrantedAuthority("user:write"));
             }
             authorities.add(new SimpleGrantedAuthority(authority));
         }
