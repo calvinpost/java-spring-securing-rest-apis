@@ -55,6 +55,15 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 	}
 
 	@Bean
+	public OpaqueTokenIntrospector introspector(UserRepository users, OAuth2ResourceServerProperties properties) {
+		OpaqueTokenIntrospector introspector = new NimbusOpaqueTokenIntrospector(
+				properties.getOpaquetoken().getIntrospectionUri(),
+				properties.getOpaquetoken().getClientId(),
+				properties.getOpaquetoken().getClientSecret());
+		return new UserRepositoryOpaqueTokenIntrospector(users, introspector);
+	}
+
+	@Bean
 	WebMvcConfigurer webMvcConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
@@ -66,15 +75,6 @@ public class ResolutionsApplication extends WebSecurityConfigurerAdapter {
 						.allowedHeaders("Authorization");
 			}
 		};
-	}
-
-	@Bean
-	public OpaqueTokenIntrospector introspector(UserRepository users, OAuth2ResourceServerProperties properties) {
-		OpaqueTokenIntrospector introspector = new NimbusOpaqueTokenIntrospector(
-				properties.getOpaquetoken().getIntrospectionUri(),
-				properties.getOpaquetoken().getClientId(),
-				properties.getOpaquetoken().getClientSecret());
-		return new UserRepositoryOpaqueTokenIntrospector(users, introspector);
 	}
 
 }
